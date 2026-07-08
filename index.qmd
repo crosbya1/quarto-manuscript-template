@@ -1,111 +1,93 @@
 ---
-title: La Palma Earthquakes
+title: Adapting vulnerability and risk to the assessment of cumulative effects on wildilfe 
 author:
-  - name: Steve Purves
-    orcid: 0000-0002-0760-5497
+  - name: Andrew D. Crosby
+    orcid: 0000-0002-9740-8453
     corresponding: true
-    email: steve@curvenote.com
+    email: acrosbynorth@gmail.com
     roles:
-      - Investigation
+      - Conceptualization
+      - Analysis
+      - Writing
       - Project administration
-      - Software
-      - Visualization
-    affiliations:
-      - Curvenote
-  - name: Rowan Cockett
-    orcid: 0000-0002-7859-8394
+      - App creation
+    affiliation:
+      - id: uofa
+        name: University of Alberta
+        department: Biological Sciences
+        group: Alberta Biodiversity Conservation (ABC) Program
+        city: Edmonton
+        state: Alberta
+        country: Canada
+      
+  - name: Erin M. Bayne
+    orcid: 0000-0002-0679-4521
     corresponding: false
     roles: []
     affiliations:
-      - Curvenote
+      - ref: uofa
+  - name: Scott E. Nielsen
+    orcid: 0000-0002-9754-0630
+    corresponding: false
+    roles: []
+    affiliations:
+      - ref: uofa
 keywords:
-  - La Palma
-  - Earthquakes
+  - Wildlife conservation
+  - Risk assessment
+  - Ecological forecasting
 abstract: |
-  In September 2021, a significant jump in seismic activity on the island of La Palma (Canary Islands, Spain) signaled the start of a volcanic crisis that still continues at the time of writing. Earthquake data is continually collected and published by the Instituto Geográphico Nacional (IGN). ...
+  Cumulative effects of human development on wildlife species can be complex, and are often difficult to assess and predict because of 
 plain-language-summary: |
-  Earthquake data for the island of La Palma from the September 2021 eruption is found ...
+  
 key-points:
-  - A web scraping script was developed to pull data from the Instituto Geogràphico Nacional into a machine-readable form for analysis
-  - Earthquake events on La Palma are consistent with the presence of both mantle and crustal reservoirs.
+  - 
 date: last-modified
 bibliography: references.bib
-citation:
-  container-title: Earth and Space Science
 number-sections: true
 ---
 
 ## Introduction
+Many modern conservation problems result from the interacting effects of multiple types of human and natural disturbances on landscape patterns and ecosystem function in what might otherwise be considered largely intact landscapes. For example, large parts of the Canadian boreal region with relatively low human populations and few roads are subject to forest harvest, mineral extraction, and energy development at large scales. The disturbances associated with these combined activities can create cumulative stresses on wildlife populations that go beyond the additive effects of the individual disturbances [@mahon2019]. Understanding the risks to wildlife populations from these cumulative effects, as well as disentangling the effects of individual disturbance types within the context of the whole, is a complex task that is nonetheless necessary for ecosystem-based management and biodiversity conservation. 
 
-```{r}
-eruptions <- c(1492, 1585, 1646, 1677, 1712, 1949, 1971, 2021)
-n_eruptions <- length(eruptions)
-```
+Much of the research investigating the effects of development on wildlife involves localized studies of species responses to specific disturbance types (*Dave Roberts summary of oil sands research*). 
 
-```{r}
-#| label: fig-timeline
-#| fig-cap: Timeline of recent earthquakes on La Palma
-#| fig-alt: An event plot of the years of the last 8 eruptions on La Palma.
-#| fig-height: 1.5
-#| fig-width: 6
-par(mar = c(3, 1, 1, 1) + 0.1)
-plot(eruptions, rep(0, n_eruptions), 
-  pch = "|", axes = FALSE)
-axis(1)
-box()
-```
+* While quantifying species' responses to disturbances (i.e., sensitivity) with empirical research is an important part of understanding effects on wildlife, for conservation purposes the critical state variable to measure is the impact on populations through time. Unfortunately studies examining localized effects on occupancy or density, even if carried out over a large spatial extent, are often difficult to translate into population-level impacts. 
 
-```{r}
-#| output: false
-avg_years_between_eruptions <- mean(diff(eruptions[-n_eruptions]))
-avg_years_between_eruptions
-```
+* Population-level consequences of development also depend on the level of exposure to those disturbances. 
 
-Based on data up to and including 1971, eruptions on La Palma happen every `{r} round(avg_years_between_eruptions, 1)` years on average.
+* For conservation purposes, quantifying potential population-level consequences from cumulative effects, as well as disentangling the effects of individual industrial sectors within the context of all other disturbances, is the priority (Crosby et al. *in review*). Risks to the population, then, are a function of population-level exposure to disturbances as well as the species response. 
 
-Studies of the magma systems feeding the volcano, such as @marrero2019, have proposed that there are two main magma reservoirs feeding the Cumbre Vieja volcano; one in the mantle (30-40km depth) which charges and in turn feeds a shallower crustal reservoir (10-20km depth).
 
-Eight eruptions have been recorded since the late 1400s (@fig-timeline).
 
-Data and methods are discussed in @sec-data-methods.
+* While some species may be very sensitive to certain types anthropogenic disturbances, if their distribution does not tend to overlap the disturbed areas the population-level consequences are likely to be low. Conversely, even species with low sensitivity might be at risk if they tend to inhabit areas subject to large amounts of disturbance. 
 
-Let $x$ denote the number of eruptions in a year. Then, $x$ can be modeled by a Poisson distribution
+## Methods
 
-$$
-p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
-$$ {#eq-poisson}
+### Hierarchical exposure analysis 
 
-where $\lambda$ is the rate of eruptions per year. Using @eq-poisson, the probability of an eruption in the next $t$ years can be calculated.
+We measured population-level exposure to oil sands disturbance in four different ways. The first was simply the proportion of the BCR 6S population within the OSR according to the BAM maps. Second, at the OSR level, we measured the proportion of the OSR population (according to the ABMI predictive maps) within active scheme approvals. Third, we measured the proportion of the OSR population within each scheme approval individually. Fourth, because exploration activities occur outside of scheme approvals throughout the OSR, we measured the overlap of the species distribution with OSR footprint within each prediction grid cell. 
 
-| Name                 | Year   |
-| -------------------- | ------ |
-| Current              | 2021   |
-| Teneguía             | 1971   |
-| Nambroque            | 1949   |
-| El Charco            | 1712   |
-| Volcán San Antonio   | 1677   |
-| Volcán San Martin    | 1646   |
-| Tajuya near El Paso  | 1585   |
-| Montaña Quemada      | 1492   |
+In the first three methods, we calculated an index of exposure as the proportion of the species population within the area of interest divided by the proportion of the population area covered by the area of interest. For example, when measuring exposure of the BCR 6S population, we divided the proportion of the BCR 6S population found within the OSR by the proportion of the area of BCR 6S covered by the OSR. In other words, the denominator represents the expected proportion of the population that would be in the OSR if it were distributed evenly throughout the BCR. An index value >1 indicates greater exposure than would be expected by chance. For the fourth method (grid-level exposure), we calculated the percentage of each grid cell covered by any type of oil sands disturbance (seismic lines, soft linear, hard linear, mines). We then multiplied that percentage by the percentage of the species' reference population within that grid cell as cell-level exposure. Total exposure was the sum of cell-level exposure values across the OSR. 
 
-: Recent historic eruptions on La Palma {#tbl-history}
 
-@tbl-history summarises the eruptions recorded since the colonization of the islands by Europeans in the late 1400s.
+### Oil sands sensitivity factors 
 
-![Map of La Palma](images/la-palma-map.png){#fig-map}
+1. Habitat Loss: Habitat loss refers to the case where disturbances created for oil sands activities change the environment enough, over a large enough area, to be considered loss of habitat. For example, well sites cover ~1 ha, and create a large open area that can nonetheless still be habitat for some species (e.g., Alder Flycatcher). We do not include industrial facilities or compressor stations in our consideration of habitat loss because these sites essentially eliminate all vegetation and, for all intents and purposes, do not constitute any kind of habitat. 
 
-La Palma is one of the west most islands in the Volcanic Archipelago of the Canary Islands (@fig-map). 
+2. d
 
-{{< embed notebooks/explore-earthquakes.qmd#fig-spatial-plot >}}
 
-@fig-spatial-plot shows the location of recent Earthquakes on La Palma.
 
-## Data & Methods {#sec-data-methods}
+## Results
+* 70 bird species evaluated by ABMI (66%) had negative responses to energy sector disturbances, while 42 (40%) had a coefficient < -50. 
 
-## Conclusion
 
-## References {.unnumbered}
+## Discussion 
 
-:::{#refs}
 
+
+
+
+::: {#refs}
 :::
